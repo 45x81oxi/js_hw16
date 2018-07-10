@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col s12 m8 offset-m2">
+            <div class="card">
+                <form name="registration-form">
+                    <div class="card-content">
+                        <span class="card-title">User registration</span>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="email" type="text" name="email">
+                                <label for="email">Email</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <input id="password" type="password" name="password">
+                                <label for="password">Password</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <input id="confirm-password" type="password" name="confirm-password">
+                                <label for="password">Confirm password</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-action">
+                        <button class="btn waves-effect waves-light register" type="submit" name="action">Register
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<!--JavaScript at end of body for optimized loading-->
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.1.0/firebase.js"></script>
+<script src="js/firestore.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/registration.js"></script>
+</body>
+</html>
