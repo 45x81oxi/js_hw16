@@ -6,6 +6,10 @@ const ui = new UI();
 const apiKey = "04b16f6e801b4af7bcd41a973b7f4776";
 // Init Auth
 const auth = new Auth();
+// Init Favorite news
+const news = new FavoriteNews();
+// Init news store
+const newsStore = NewsStore.getInstance();
 
 const categories = [
     {
@@ -55,12 +59,14 @@ const searchInput = document.getElementById("search");
 const searchBtn = document.getElementById("searchBtn");
 const container = document.querySelector('.news-control .container');
 const logout = document.querySelector('.logout');
+const newsContainer = document.querySelector('.news-container');
 
 
 // All events
 searchBtn.addEventListener("click", onSearch);
 container.addEventListener('change', onChoice);
 logout.addEventListener("click", onLogout);
+newsContainer.addEventListener("click", addFavorite);
 
 
 //Check auth state
@@ -114,7 +120,11 @@ function onChange(val) {
         .then(response => {
             if (response.totalResults) {
                 ui.clearContainer();
-                response.articles.forEach(news => ui.addNews(news));
+                // перебираем новости из поля articles в объекте response
+                response.articles.forEach((news, index) => ui.addNews(news, index));
+                // сохраняем новости в хранилище news-store
+                newsStore.setNews(response.articles);
+
             } else {
                 val === 'category' ? ui.showInfo(`Новости по ${selectChoice.value} по стране ${select.value} не найдены`) :
                     ui.showInfo(`Новостей по ${selectChoice.value} не найдено!`);
@@ -146,4 +156,20 @@ function onLogout() {
     auth.logout()
         .then(() => window.location = "login.html")
         .catch(err => console.log(err));
+}
+
+function addFavorite(e) {
+    e.target.setAttribute("disabled", true);
+    if (e.target.classList.contains('add-favorite')) {
+        const index = e.target.dataset.index;
+        const oneNews = newsStore.getNews()[index];
+        news.addFavoriteNews(oneNews)
+            .then(data => {
+                // вывод сообщения об успешном добавлении новости в избранное
+                M.toast({html: 'News added to favorites!', classes: 'deep-orange darken-1', displayLength: 5000});
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
 }

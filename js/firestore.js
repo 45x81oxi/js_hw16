@@ -1,4 +1,5 @@
-const FirestoreInit = (function(){
+const FirestoreInit = (function () {
+    var instance;
     // Initialize Firebase
     var config = {
         apiKey: "AIzaSyCXw12HuDoWlcvBt8wJJWSRJnWt0FWGi2w",
@@ -9,4 +10,31 @@ const FirestoreInit = (function(){
         messagingSenderId: "436984692386"
     };
     firebase.initializeApp(config);
+
+
+// Initialize Cloud Firestore through Firebase
+    var db = firebase.firestore();
+
+    function getDb() {
+        return db;
+    }
+
+    function createInstance() {
+        return {
+            getDb
+        }
+    }
+
+    return {
+        getInstance() {
+            return instance || (instance = createInstance());
+        }
+    }
+    //  db.collection("favorite-news").get().then((querySnapshot) => {
+    //      querySnapshot.forEach((doc) => {
+    //      console.log(`${doc.id}`);
+    //          console.dir(doc.data());
+    //     });
+    // });
+
 })();
